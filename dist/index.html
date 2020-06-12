@@ -6,6 +6,7 @@
 	<title>CodePen - Ruleta QP</title>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
 	<link rel="stylesheet" href="./style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -80,9 +81,15 @@
 							<label for="userNameRegister">用戶名：</label>
 							<input type="text" class="form-control" id="userNameRegister" placeholder="User name">
 						</div>
-						<div class="form-group">
+
+						<div class="form-group input-group">
 							<label for="passwordRegister">密碼：</label>
-							<input type="password" class="form-control" id="passwordRegister" placeholder="Password">
+							<div class="input-group">
+								<input type="password" class="form-control" id="passwordRegister" placeholder="Password">
+								<div class="input-group-append">
+								  <button class="btn btn-outline-secondary show_pass" type="button"><i class="fa fa-eye-slash"></i></button>
+								</div>
+							  </div>
 							<small class="form-text text-muted">因為我們的前端工程師懶得做二次確認欄，所以給我自己確認</small>
 						</div>
 					</div>
@@ -109,19 +116,18 @@
 						<div class="form-group">
 							<label for="userNameLogin">用戶名：</label>
 							<input type="text" class="form-control" id="userNameLogin" placeholder="User name">
-							<small class="form-text text-muted">We'll never share your email with anyone else.</small>
 						</div>
-						<div class="form-group">
-						  <label for="passwordLogin">密碼：</label>
-						  <input type="password" class="form-control" id="passwordLogin" placeholder="Password">
+						<div class="form-group">.
+							<label for="passwordLogin">密碼：</label>
+							<input type="password" class="form-control" id="passwordLogin" placeholder="Password">
 						</div>
 						<div class="form-group form-check">
-						  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-						  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+						  <input type="checkbox" class="form-check-input" id="rememberMe">
+						  <label class="form-check-label" for="rememberMe">記住我！</label>
 						</div>
 					</div>
 					<div class="modal-footer">
-						已有帳號?<button type="button" class="btn btn-link" onclick="registerShow()">註冊</button>
+						沒有帳號?那就不要亂點登入啦<button type="button" class="btn btn-link" onclick="registerShow()">註冊</button>
 						<button type="submit" class="btn btn-primary">登入</button>
 					</div>
 				</form>

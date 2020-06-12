@@ -10,7 +10,17 @@ function registerShow(){
   $("#loginModal").modal("hide");
   $("#registerModal").modal("show");
 }
+$('.show_pass').click(function () {
+  let pass_type = $('input').attr('type');
 
+  if (pass_type === 'password'){
+      $('input').attr('type', 'password');
+      $('.show_pass i').removeClass('fa-eye-slash').addClass('fa-eye');
+  } else {
+      $('input').attr('type', 'text');
+      $('.show_pass i').removeClass('fa-eye').addClass('fa-eye-slash');
+  }
+})
 //---------------------------阿寶不想處理的分隔線----------------------------------------------------------
 var data = [
   //{ id: '', color: '#3f297e', text: 'ALL IN', ikon: 'invert_colors' },
