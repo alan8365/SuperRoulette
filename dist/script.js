@@ -14,11 +14,11 @@ $('.show_pass').click(function () {
   let pass_type = $('input').attr('type');
 
   if (pass_type === 'password'){
-      $('input').attr('type', 'password');
-      $('.show_pass i').removeClass('fa-eye-slash').addClass('fa-eye');
-  } else {
       $('input').attr('type', 'text');
       $('.show_pass i').removeClass('fa-eye').addClass('fa-eye-slash');
+  } else {
+      $('input').attr('type', 'password');
+      $('.show_pass i').removeClass('fa-eye-slash').addClass('fa-eye');
   }
 })
 //---------------------------阿寶不想處理的分隔線----------------------------------------------------------
