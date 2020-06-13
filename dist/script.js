@@ -2,14 +2,8 @@ $(document).ready(function(){
   registerShow();
 })
 
-function loginShow(){
-  $("#registerModal").modal("hide");
-  $("#loginModal").modal("show");
-}
-function registerShow(){
-  $("#loginModal").modal("hide");
-  $("#registerModal").modal("show");
-}
+
+/*** 顯示/隱藏密碼 ***/
 $('.show_pass').click(function () {
   let pass_type = $('input').attr('type');
 
@@ -21,6 +15,26 @@ $('.show_pass').click(function () {
       $('.show_pass i').removeClass('fa-eye-slash').addClass('fa-eye');
   }
 })
+
+
+/*** 登入視窗顯示 ***/
+function loginShow(){
+  $("#registerModal").modal("hide");
+  $("#loginModal").modal("show");
+}
+
+
+/*** 註冊視窗顯示 ***/
+function registerShow(){
+  $("#loginModal").modal("hide");
+  $("#registerModal").modal("show");
+}
+
+
+/*** 中獎公告推送 ***/
+function newAdd(text){
+  $("ul.list-group-flush").prepend($('<li class="list-group-item"></li>').text(text));
+}
 //---------------------------阿寶不想處理的分隔線----------------------------------------------------------
 var data = [
   //{ id: '', color: '#3f297e', text: 'ALL IN', ikon: 'invert_colors' },

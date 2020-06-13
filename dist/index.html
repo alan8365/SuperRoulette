@@ -37,7 +37,7 @@
 					</button>
 					<div class="dropdown-menu dropdown-menu-right">
 					  <!-- Dropdown menu links -->
-						<a class="dropdown-item" href="#">更換頭像</a>
+						<a class="dropdown-item" href="#" data-toggle="modal" data-target="#changeAvatar">更換頭像</a>
 						<a class="dropdown-item" href="#">登出</a>
 					</div>
 				  </div>
@@ -60,13 +60,10 @@
 		</div>
 	</div>
 	<!-- 消息推送 -->
-	<ul class="list-group list-group-flush w-25" style="right: 0; position: absolute; top: 50%;">
-		<li class="list-group-item">Cras justo odio</li>
-		<li class="list-group-item">Dapibus ac facilisis in</li>
-		<li class="list-group-item">Morbi leo risus</li>
-		<li class="list-group-item">Porta ac consectetur ac</li>
-		<li class="list-group-item">Vestibulum at eros</li>
-	  </ul>
+	<div class="news w-25 h-50 text-danger font-weight-bold">
+		<ul class="list-group list-group-flush">
+		</ul>
+	</div>
 	<!-- 註冊Modal -->
 	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalTitle"
 		aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -117,7 +114,7 @@
 							<label for="userNameLogin">用戶名：</label>
 							<input type="text" class="form-control" id="userNameLogin" placeholder="User name">
 						</div>
-						<div class="form-group">.
+						<div class="form-group">
 							<label for="passwordLogin">密碼：</label>
 							<input type="password" class="form-control" id="passwordLogin" placeholder="Password">
 						</div>
@@ -134,7 +131,27 @@
 			</div>
 		</div>
 	</div>
-	
+
+<!-- 更換頭像Modal -->
+<div class="modal fade" id="changeAvatar" tabindex="-1" role="dialog" aria-labelledby="changeAvatarTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="changeAvatarTitle">更換頭像</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  ...
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+	  </div>
+	</div>
+  </div>
 
 	<!-- partial -->
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
