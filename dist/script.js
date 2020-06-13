@@ -35,6 +35,13 @@ function registerShow(){
 function newAdd(text){
   $("ul.list-group-flush").prepend($('<li class="list-group-item"></li>').text(text));
 }
+
+
+/*** 選擇檔案後顯示名稱 ***/
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
 //---------------------------阿寶不想處理的分隔線----------------------------------------------------------
 var data = [
   //{ id: '', color: '#3f297e', text: 'ALL IN', ikon: 'invert_colors' },

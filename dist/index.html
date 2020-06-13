@@ -37,7 +37,7 @@
 					</button>
 					<div class="dropdown-menu dropdown-menu-right">
 					  <!-- Dropdown menu links -->
-						<a class="dropdown-item" href="#" data-toggle="modal" data-target="#changeAvatar">更換頭像</a>
+						<a class="dropdown-item" href="#" data-toggle="modal" data-target="#changeAvatarModal">更換頭像</a>
 						<a class="dropdown-item" href="#">登出</a>
 					</div>
 				  </div>
@@ -69,7 +69,7 @@
 		aria-hidden="true" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
-				<form>
+				<form id="register">
 					<div class="modal-header justify-content-center">
 						<h5 class="modal-title" id="registerModalTitle">用戶註冊</h5>
 					</div>
@@ -105,7 +105,7 @@
 		aria-hidden="true" data-backdrop="static" data-keyboard="false">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
-				<form>
+				<form id="login">
 					<div class="modal-header justify-content-center">
 						<h5 class="modal-title" id="loginModalTitle">用戶登入</h5>
 					</div>
@@ -133,7 +133,7 @@
 	</div>
 
 <!-- 更換頭像Modal -->
-<div class="modal fade" id="changeAvatar" tabindex="-1" role="dialog" aria-labelledby="changeAvatarTitle" aria-hidden="true">
+<div class="modal fade" id="changeAvatarModal" tabindex="-1" role="dialog" aria-labelledby="changeAvatarTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 	  <div class="modal-content">
 		<div class="modal-header">
@@ -143,11 +143,26 @@
 		  </button>
 		</div>
 		<div class="modal-body">
-		  ...
+			<!-- 頭像顯示 -->
+			<div class="text-center">
+				<img class="w-50" src="https://icons-for-free.com/iconfiles/png/512/people+person+profile+user+icon-1320186207447274965.png" alt="">
+			</div>
+			<!-- 選擇檔案 -->
+			<form id="changeAvatar">
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+					<span class="input-group-text" id="inputGroupFileAddon01">上傳</span>
+					</div>
+					<div class="custom-file">
+					<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+					<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+					</div>
+				</div>
+			</form>
 		</div>
 		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		  <button type="button" class="btn btn-primary">Save changes</button>
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+		  <button type="button" class="btn btn-primary">儲存</button>
 		</div>
 	  </div>
 	</div>

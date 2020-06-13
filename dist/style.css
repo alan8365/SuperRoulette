@@ -24,6 +24,11 @@
   background:#feb9c3;
   }
 
+label.custom-file-label {
+  overflow-x: hidden;
+}
+
+
 
 body {
   overflow: hidden;
