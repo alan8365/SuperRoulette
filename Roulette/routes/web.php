@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-use \App\Events\NewMessageNotification;
+use App\Credit;
+use App\Mycard;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,15 +25,17 @@ Route::get('/', function () {
 Route::post('/update/money', function (Request $request) {
     $user = Auth::user();
 
-    error_log(print_r($request->name, true));
-
-    if ($user->name == $request->name) {
-        $user->money = $request->money;
-        $user->save();
-    }
+    $user->money = $request->money;
+    $user->save();
 
     return response()->json(array('msg' => '222'));
 })->name('update.money');
+
+Route::get('/pay', "PayController@showPayForm")->name('pay');
+
+Route::post('/pay/credit-card', "PayController@addCreditRecord")->name('pay.credit-card');
+
+Route::post('/pay/mycard', "PayController@addMycardRecord")->name('pay.mycard');
 
 Route::post('/changeAvatar', 'ProfileController@changeAvatar')->name('changeAvatar');
 

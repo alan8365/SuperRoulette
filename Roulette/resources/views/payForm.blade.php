@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>中科線上大輪盤-儲值</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css'>
+    <link rel="stylesheet" href="{{ asset('css/payForm/style.css') }}">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+
+<body>
+<!-- partial:index.partial.html -->
+<div class="container w-50">
+
+    <div class="section over-hide z-bigger">
+        <input class="checkbox" type="checkbox" name="general" id="general" checked style="display:none">
+        <label class="for-checkbox" for="general" style="display:none"></label>>
+        <div class="background-color"></div>
+        <div class="section over-hide z-bigger">
+            <div class="container pb-5">
+                <div class="row justify-content-center pb-5">
+                    <div class="col-12 pt-1">
+                        <p class="mb-4 pb-2 h1">儲值金額</p>
+                    </div>
+                    <div class="col-xl-10">
+                        <input class="checkbox-budget" type="radio" name="amount" id="budget-1" value="100" checked>
+                        <label class="for-checkbox-budget" for="budget-1">
+                            <span data-hover="100$">100$</span>
+                        </label>
+                        <input class="checkbox-budget" type="radio" name="amount" id="budget-2" value="400">
+                        <label class="for-checkbox-budget" for="budget-2">
+                            <span data-hover="400$">400$</span>
+                        </label>
+                        <input class="checkbox-budget" type="radio" name="amount" id="budget-3" value="800">
+                        <label class="for-checkbox-budget" for="budget-3">
+                            <span data-hover="800$">800$</span>
+                        </label>
+                        <input class="checkbox-budget" type="radio" name="amount" id="budget-4" value="1000">
+                        <label class="for-checkbox-budget" for="budget-4">
+                            <span data-hover="1000$">1000$</span>
+                        </label>
+                        <input class="checkbox-budget" type="radio" name="amount" id="budget-5" value="2500">
+                        <label class="for-checkbox-budget" for="budget-5">
+                            <span data-hover="2500$">2500$</span>
+                        </label>
+                        <input class="checkbox-budget" type="radio" name="amount" id="budget-6" value="5000">
+                        <label class="for-checkbox-budget" for="budget-6">
+                            <span data-hover="5000$">5000$</span>
+                        </label>
+                    </div>
+
+                    <div class="col-12 pt-5">
+                        <p class="mb-4 pb-2 h1">支付方法</p>
+                    </div>
+
+                    <div class="border border-warning col-10 rounded">
+                        <div class="col-12 pt-4">
+                            <input class="checkbox-tools" type="radio" name="payment" id="tools-1" value="credit"
+                                   checked>
+                            <label class="for-checkbox-tools" for="tools-1">
+                                <img class="w-100 pb-2" src="https://i.imgur.com/fg0sxp0.png"><br>
+                                信用卡
+                            </label>
+                            <input class="checkbox-tools" type="radio" name="payment" id="tools-2" value="mycard">
+                            <label class="for-checkbox-tools" for="tools-2">
+                                <img class="pb-2" src="https://i.imgur.com/pWrl9bf.png"><br>
+                                MyCard
+                            </label>
+                        </div>
+
+                        <div class="col-12 px-4 py-4 text-left">
+                            <form action="{{ route("pay.credit-card") }}" name="card" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">信用卡號</label>
+                                    <div class="form-row col-12">
+                                        <input type="text" class="form-control col" name="card-number-1" maxlength="4">－
+                                        <input type="text" class="form-control col" name="card-number-2" maxlength="4">－
+                                        <input type="text" class="form-control col" name="card-number-3" maxlength="4">－
+                                        <input type="text" class="form-control col" name="card-number-4" maxlength="4">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="name">持卡人姓名</label>
+
+                                    <div class="form-row col-12">
+                                        <input type="text" class="form-control" id="name" name="name">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class=" col-6">
+                                        <label for="exampleInputPassword1">到期時間</label>
+                                        <div class="form-row" style="padding: 0 10px;">
+                                            <div class="col-6">
+                                                <select class="custom-select" name="date-m">
+                                                    <option selected hidden>MM</option>
+                                                    <option value="01">One</option>
+                                                    <option value="02">Two</option>
+                                                    <option value="03">Three</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-6">
+                                                <select class="custom-select" name="date-y">
+                                                    <option selected hidden>YYYY</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-6">
+                                        <label for="CVC">末三碼</label>
+                                        <div class="form-row col-12">
+                                            <input type="text" class="form-control col-12" id="CVC" name="CVC">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="money" value="100">
+                            </form>
+
+                            <form action="{{ route("pay.mycard") }}" name="myCard" method="post">
+                                @csrf
+                                <div class="form-group col-12">
+                                    <label for="myCardNumber">MyCard卡號</label>
+                                    <div class="form-row col-12">
+                                        <input name="card_number" type="text" class="form-control" id="myCardNumber">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label for="myCardPassword">MyCard密碼</label>
+
+                                    <div class="form-row col-12">
+                                        <input name="password" type="password" class="form-control" id="myCardPassword">
+                                    </div>
+
+                                </div>
+
+                                <input type="hidden" name="money" value="100">
+                            </form>
+
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">再次確認輸入資料與儲值金額</label>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary" id="submit">確認送出</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- partial -->
+<script src="{{ asset('js/payForm/script.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

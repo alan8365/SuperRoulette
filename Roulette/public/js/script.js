@@ -272,6 +272,9 @@ RouletteWheel.prototype.bindEvents = function () {
     this.$el.find('.button').on('click', $.proxy(this.spin, this));
 };
 
+RouletteWheel.prototype.cancelEvents = function () {
+    this.$el.find('.button').off('click');
+};
 
 // var spinner;
 // $(window).ready(function () {

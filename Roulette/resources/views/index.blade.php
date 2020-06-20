@@ -11,13 +11,7 @@
 </head>
 
 <body>
-<!-- partial:index.partial.html -->
-<!-- <button onclick="spinner.spin()">RND</button>
-<button onclick="spinner.spin(0)">0</button>
-<button onclick="spinner.spin(1)">1</button>
-<button onclick="spinner.spin(2)">2</button>
-<button onclick="spinner.spin(3)">3</button>
-<button onclick="spinner.spin(4)">4</button> -->
+
 <nav class="navbar fixed-bottom navbar-dark bg-dark text-light">
     <svg class="bi bi-life-preserver" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
          xmlns="http://www.w3.org/2000/svg">
@@ -49,6 +43,7 @@
 					<div class="dropdown-menu dropdown-menu-right">
 					  <!-- Dropdown menu links -->
 						<a class="dropdown-item" href="#" data-toggle="modal" data-target="#changeAvatarModal">更換頭像</a>
+                        <a class="dropdown-item" href="{{ route('pay') }}">儲值</a>
 						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">登出</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -61,8 +56,6 @@
     </div>
 </nav>
 
-<!-- <br>
-<h1 style="text-align: center;color: #1b3380;"></h1> -->
 <div class="roulette">
     <div class="spinner"></div>
     <div class="shadow"></div>
@@ -72,10 +65,11 @@
         </div>
     </div>
 
-    <div class="button">
+    <div class="button" id="test">
         <span>按一次扣<br>$300</span>
     </div>
 </div>
+
 <!-- 消息推送 -->
 <div class="news w-25 h-50 text-danger font-weight-bold">
     <ul class="list-group list-group-flush">
@@ -209,9 +203,7 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js'></script>
-<script>
-    window.laravel_echo_port = '{{env("LARAVEL_ECHO_PORT")}}';
-</script>
+
 <script src="{{ asset('js/script.js') }}"></script>
 
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -251,14 +243,21 @@
 
         spinner = new RouletteWheel($('.roulette'), data);
         spinner.render();
-        spinner.bindEvents();
+
+        if (money >= 300) {
+            spinner.bindEvents();
+        }
 
         spinner.on('spin:start', function (r) {
             console.log('spin start!');
             console.log(money);
             money -= 300;
             $("#showMoney").text(money);
-            update_money(username, money)
+            update_money(username, money);
+
+            if (money < 300) {
+                spinner.cancelEvents();
+            }
         });
 
         spinner.on('spin:end', function (r) {
@@ -272,6 +271,10 @@
             }
 
             money += pay;
+
+            if (money < 300) {
+                spinner.cancelEvents();
+            }
 
             $("#showMoney").text(money);
             update_money(username, money);
@@ -289,6 +292,7 @@
         })
     });
 </script>
+
 </body>
 
 </html>
