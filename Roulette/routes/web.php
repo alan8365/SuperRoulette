@@ -1,6 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+
+use \App\Events\NewMessageNotification;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +20,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
+
+Route::post('/update/money', function (Request $request) {
+    $user = Auth::user();
+
+    error_log(print_r($request->name, true));
+
+    if ($user->name == $request->name) {
+        $user->money = $request->money;
+        $user->save();
+    }
+
+    return response()->json(array('msg' => '222'));
+})->name('update.money');
+
+Route::post('/changeAvatar', 'ProfileController@changeAvatar')->name('changeAvatar');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
