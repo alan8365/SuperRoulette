@@ -222,10 +222,6 @@
 
 <script src="{{ asset('js/socket.io/socket.io.js') }}"></script>
 
-<script>
-    var socket = io('http://localhost:3000');
-</script>
-
 @guest
     <script src="{{ asset('js/guest.js') }}"></script>
 @else
@@ -238,6 +234,8 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    var socket = io('http://localhost:3000');
 
     $('#guest-in').on('click', function () {
         let $guest_name = $('#guest-name');
