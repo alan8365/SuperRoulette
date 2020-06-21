@@ -3,6 +3,29 @@ $(document).ready(function(){
 })
 
 
+var record = [
+  { time: "2020/6/21 03:15", prize: "$-100" },
+  { time: "2020/6/21 13:15", prize: "$500" },
+  { time: "2020/6/22 14:15", prize: "$300" },
+  { time: "2020/6/22 14:25", prize: "$0" }
+];
+
+var $table = $('tbody');
+var rowElements = [];
+
+// Loop over the array
+for (let i = 0; i < record.length; ++i ) {
+  rowElements.push(
+      $('<tr></tr>').append(
+          $('<th scope="row"></th>').html(i+1),
+          $('<td></td>').html(record[i].time),
+          $('<td></td>').html(record[i].prize)
+      )
+  );
+}
+
+$table.append(rowElements);
+
 /*** 顯示/隱藏密碼 ***/
 $('.show_pass').click(function () {
   let pass_type = $('input').attr('type');
