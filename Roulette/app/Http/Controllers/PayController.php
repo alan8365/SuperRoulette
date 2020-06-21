@@ -6,6 +6,7 @@ use App\Credit;
 use App\Mycard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PayController extends Controller
 {
@@ -17,11 +18,12 @@ class PayController extends Controller
     public function creditValidator(array $data)
     {
         return Validator::make($data, [
-            'card_number' => ['required', 'string', 'regex:\d{4}-\d{4}-\d{4}-\d{4}'],
+            'card_number' => ['required', 'string', 'min:19', 'max:19'],
             'name' => ['required', 'string', 'max:255'],
             'date' => ['required', 'string'],
             'last-code' => ['required', 'string', 'min:3', 'max:3'],
-            'user_name' => ['required']
+            'user_name' => ['required'],
+            'amount' => ['required', 'int']
         ]);
     }
 
@@ -37,7 +39,8 @@ class PayController extends Controller
             'name' => $request['name'],
             'date' => $date,
             'last-code' => $request['CVC'],
-            'user_name' => $user->name
+            'user_name' => $user->name,
+            'amount' => $request['money']
         ];
 
         $this->creditValidator($data)->validate();
