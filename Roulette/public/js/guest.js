@@ -18,7 +18,10 @@ $(document).ready(function () {
     registerShow();
 
     $('#guest-in').on('click', function () {
+        let $guest_name = $('#guest-name');
+
         $guest_name.show();
+        username = $guest_name.text();
     });
 });
 

@@ -28,3 +28,21 @@ io.on('connection', (socket) => {
     })
 });
 
+const rewards = [300, 400, 500, 1000, 5000];
+setInterval(() => {
+    if (getRndInteger(0, 10) > 5) {
+        let user = '訪客 ' + getRndInteger(1, 99999999);
+        let reward = rewards[getRndInteger(0, rewards.length)];
+
+        let msg = {
+            'name': user,
+            'reward': reward
+        };
+
+        io.emit('someone-get-reward', msg);
+    }
+}, 3000);
+
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}

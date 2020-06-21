@@ -229,13 +229,6 @@
 
     var socket = io('http://localhost:3000');
 
-    $('#guest-in').on('click', function () {
-        let $guest_name = $('#guest-name');
-
-        $guest_name.show();
-        username = $guest_name.text();
-    });
-
     var spinner;
     var money;
     $(window).ready(function () {
@@ -274,20 +267,23 @@
 
             if (money < 300) {
                 spinner.cancelEvents();
+            } else {
+                spinner.bindEvents();
             }
 
             $("#showMoney").text(money);
             update_money(username, money);
 
-            socket.emit('get-reward', {
-                'name': username,
-                'reward': pay
-            });
+            if (pay >= 300) {
+                socket.emit('get-reward', {
+                    'name': username,
+                    'reward': pay
+                });
+            }
         });
 
         // 推送
         socket.on('someone-get-reward', function (msg) {
-            console.log(msg);
             newAdd(msg['name'] + ' 轉到了 ' + msg['reward'] + ' !!!')
         })
     });
