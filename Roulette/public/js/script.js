@@ -2,10 +2,39 @@
 //     registerShow();
 // });
 
+function getTimeFormat(time) {
+    result = time.getFullYear()
+        + '-' + ('0' + (time.getMonth() + 1)).slice(-2) + '-'
+        + time.getDate() + ' '
+        + time.getHours()
+        + ":" + time.getMinutes() + ":"
+        + time.getSeconds();
+
+    return result;
+}
+
+function recordAdd(record) {
+    let $table = $('#reward-record');
+    let rowElements = [];
+
+    console.log($('#reward-record > tbody > tr:last > td:first'));
+
+    let lastNumber = parseInt($('#reward-record > tbody > tr:last > th').text());
+
+    rowElements.push(
+        $('<tr></tr>').append(
+            $('<th scope="row"></th>').html(lastNumber + 1),
+            $('<td></td>').html(record.time),
+            $('<td></td>').html(record.prize)
+        )
+    );
+
+    $table.append(rowElements);
+}
 
 /*** 顯示/隱藏密碼 ***/
 $('.show_pass').click(function () {
-    let pass_type = $('input').attr('type');
+    let pass_type = $('input[name=password]').attr('type');
 
     if (pass_type === 'password') {
         $('input').attr('type', 'text');
@@ -126,7 +155,6 @@ RouletteWheel.prototype.spin = function (_index) {
         }
     }
 
-    console.log(data[index]);
 
     var a = index * delta + ((this._bis) ? 1440 : -1440);
 

@@ -4,8 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-use App\Credit;
-use App\Mycard;
+use App\Record;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,19 +18,56 @@ use App\Mycard;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $user = Auth::user();
+
+    if ($user) {
+        $all_record = Record::where('user_name', $user->name)
+            ->select('created_at', 'reward')
+            ->get();
+    } else {
+        $all_record = [];
+    }
+
+//    $all_record = Record::all();
+
+//    error_log(print_r($all_record, true));
+
+    return view('index')->with([
+        'all_record' => $all_record
+    ]);
 })->name('index');
+
+Route::get('/test', function (Request $request) {
+    $user = Auth::user();
+
+    Record::create([
+        "reward" => "money",
+        "user_name" => $user->name
+    ]);
+
+    return '222';
+});
 
 Route::post('/update/money', function (Request $request) {
     $user = Auth::user();
 
-    $user->money = $request->money;
+    error_log($user->money);
+    error_log($request->money);
+
+    $user->money += $request->money;
     $user->save();
 
-    return response()->json(array('msg' => '222'));
+    if ($request->money != -300) {
+        Record::create([
+            "reward" => $request->money,
+            "user_name" => $user->name
+        ]);
+    }
+
+    return response()->json(array('msg' => '0'));
 })->name('update.money');
 
-Route::get('/pay', "PayController@showPayForm")->name('pay');
+Route::get('/pay', "PayController@showPayForm")->name('pay')->middleware('auth');
 
 Route::post('/pay/credit-card', "PayController@addCreditRecord")->name('pay.credit-card');
 

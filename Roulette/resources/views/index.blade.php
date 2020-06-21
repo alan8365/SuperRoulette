@@ -43,6 +43,7 @@
 					<div class="dropdown-menu dropdown-menu-right">
 					  <!-- Dropdown menu links -->
 						<a class="dropdown-item" href="#" data-toggle="modal" data-target="#changeAvatarModal">更換頭像</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#recordModal">中獎紀錄</a>
                         <a class="dropdown-item" href="{{ route('pay') }}">儲值</a>
 						<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">登出</a>
@@ -198,6 +199,44 @@
     </div>
 </div>
 
+<!-- 中獎紀錄Modal -->
+<div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="recordModal"
+     aria-hidden="true" style="overflow: auto;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="recordModal">中獎紀錄</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="reward-record" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">中獎時間</th>
+                        <th scope="col">獎項</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for($i = 0;$i < count($all_record);$i++)
+                        <tr>
+                            <th scope="row">{{ $i + 1 }}</th>
+                            <td>{{ $all_record[$i]['created_at'] }}</td>
+                            <td>{{ $all_record[$i]['reward'] }}</td>
+                        </tr>
+                    @endfor
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- partial -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js'></script>
@@ -242,11 +281,9 @@
         }
 
         spinner.on('spin:start', function (r) {
-            console.log('spin start!');
-            console.log(money);
             money -= 300;
             $("#showMoney").text(money);
-            update_money(username, money);
+            update_money(username, -300);
 
             if (money < 300) {
                 spinner.cancelEvents();
@@ -254,31 +291,38 @@
         });
 
         spinner.on('spin:end', function (r) {
-            console.log('spin end! -->' + r._index);
             let pay;
             let type = data[r._index]['type'];
+
             if (type === 'replay') {
-                spinner.spin();
+                setTimeout(() => {
+                    spinner.spin();
+                }, 1000);
             } else {
                 pay = data[r._index]['value'];
-            }
 
-            money += pay;
+                money += pay;
 
-            if (money < 300) {
-                spinner.cancelEvents();
-            } else {
-                spinner.bindEvents();
-            }
+                if (money < 300) {
+                    spinner.cancelEvents();
+                } else {
+                    spinner.bindEvents();
+                }
 
-            $("#showMoney").text(money);
-            update_money(username, money);
+                $("#showMoney").text(money);
+                update_money(username, pay);
 
-            if (pay >= 300) {
-                socket.emit('get-reward', {
-                    'name': username,
-                    'reward': pay
-                });
+                if (pay >= 300) {
+                    socket.emit('get-reward', {
+                        'name': username,
+                        'reward': pay
+                    });
+                }
+
+                recordAdd({
+                    'time': getTimeFormat(new Date()),
+                    'prize': pay
+                })
             }
         });
 

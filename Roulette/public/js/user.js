@@ -7,9 +7,6 @@ function update_money(name, money) {
         data: {
             "name": name,
             "money": money,
-        },
-        success: function (data) {
-            console.log(data);
         }
     })
 }
